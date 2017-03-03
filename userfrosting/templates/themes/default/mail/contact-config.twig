@@ -1,0 +1,24 @@
+{% block subject %}
+    ProServ Plus Ticket - {{ data.name }}
+{% endblock %}
+
+{% block body %}
+    <p>
+		<b>User Information:</b><br>
+		User Display Name: {{ user.user_name }}<br>
+		User Email: {{ user.email }}<br>
+		user ID: {{ user.id }}<br>
+		<br>
+		<b>Submitted Information:</b><br>
+        Name: {{ data.name }}<br>
+        Email: {{ data.email }}<br>
+        Address: {{ data.siteaddress }}<br>
+        Phone number: <a href="tel:{{ data.phone }}">{{ data.phone }}</a><br>
+        Service Type: {{ data.servicetype }}<br>
+        Service Level: {{ data.servicelevel }}
+    </p>
+    <p>
+    <b>Message:</b><br>
+    {{ data.message }}
+    </p>
+{% endblock %}

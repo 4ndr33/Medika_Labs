@@ -1,0 +1,35 @@
+{% extends "layouts/layout-dashboard.twig" %}
+
+{# Set page properties (page.*) here. #}
+{% block page %}
+    {# By putting this in a special block, we ensure that it will be set AFTER the default values are set in the parent template, 
+    but BEFORE the page itself is rendered. #}    
+    {% set page = page | merge({
+        "title"       : "Site Settings",
+        "description" : "Global settings for the site, including registration and activation settings, site title, admin emails, and default languages."
+    }) %}
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+   
+    <div class="row">
+        <div class="col-md-12">
+            <div class='panel panel-primary'>
+                <div class='panel-heading'>
+                    <h3 class='panel-title'><i class='fa fa-files-o'></i> Work Log</h3>
+                </div>
+                <div class='panel-body'>
+                    
+                    {% for ticket in tickets %}
+                        <code style="color:green;">{{ticket.time_stamp}} : Ticket {{ticket.log_content}}</code><br>                         
+                    {% endfor %}
+                </div>
+                <div class="panel-footer">
+                </div>                        
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block page_scripts %}
+    
+{% endblock %}

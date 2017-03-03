@@ -1,0 +1,28 @@
+{# This contains a series of <script> blocks, each of which is a client-side Handlebars template. #}
+{% verbatim %}
+<script id="user-table-column-from-name" type="text/x-handlebars-template">
+    <td data-text="{{user.from_id}}">
+        <strong>
+            {{user.from_name}}
+        </strong>
+    </td>
+</script>
+
+<script id="user-table-column-position-name" type="text/x-handlebars-template">
+    <td data-text="{{user.position_name}}">
+       {{user.position_name}}
+    </td>
+</script>
+
+
+<script id="user-table-column-actions" type="text/x-handlebars-template">
+    <td>
+        <a href="#" data-id="{{user.id}}" class="js-user-accept-offer-provider btn btn-success">
+        <i class="fa fa-bolt"></i> Accept Offer
+        </a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="#" data-id="{{user.id}}" class="js-user-reject-offer-provider btn btn-danger">
+        <i class="fa fa-bolt"></i> Reject Offer
+        </a>
+    </td>
+</script>
+{% endverbatim %}

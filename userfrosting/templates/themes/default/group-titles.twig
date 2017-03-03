@@ -1,0 +1,64 @@
+            {% extends "layouts/layout-dashboard.twig" %}
+        
+            {% block page %}   
+                {% set page = page | merge({
+                    "title"       : "Update Group Titles",
+                    "description" : "Update the title for every user in a particular group."
+                }) %}
+                {{ parent() }}
+            {% endblock %}
+        
+            {% block content %}
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="panel panel-primary">
+                    <div class="panel-heading">
+                      <h3 class="panel-title"><i class="fa fa-users"></i> Change Group Titles</h3>
+                    </div>
+                    <div class="panel-body">
+                      <form class="form-horizontal" role="form" name="titles" action="{{site.uri.public}}/groups/titles" method="post">
+                        <div class="form-group">
+                          <label for="input_group" class="col-sm-4 control-label">Primary group</label>
+                          <div class="col-sm-8">
+                            <select id="input_group" class="form-control select2" name="group_id">
+                              {% for group in groups %}
+                              <option value="{{group.id}}">{{group.name}}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="input_title" class="col-sm-4 control-label">New Title</label>
+                          <div class="col-sm-8">
+                            <input type="text" id="input_title" class="form-control" name="title" placeholder="Please choose a new title">
+                            <p class="help-block">This will become the new title for all users in the selected group.</p>
+                          </div>
+                        </div>
+                        <div class="form-group text-center">
+                          <button type="submit" class="btn btn-success text-center">Update Titles</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                </div>
+            {% endblock %}
+
+
+			{% block page_scripts %}
+            <script>
+            $(document).ready(function() { 
+                // Load the validator rules for this form
+                var validators = {{validators | raw}};
+                ufFormSubmit(
+                  $("form[name='titles']"),
+                  validators,
+                  $("#userfrosting-alerts"),
+                  function(data, statusText, jqXHR) {
+                      // Reload the page on success
+                      window.location.reload(true);   
+                  }
+                );
+            });
+        </script>
+        {% endblock %}

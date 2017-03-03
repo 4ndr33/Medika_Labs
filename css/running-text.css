@@ -1,0 +1,8 @@
+.inner{
+    position:relative;
+    top:0px;
+}
+.outer{
+    overflow:hidden;
+    height:100px;
+}

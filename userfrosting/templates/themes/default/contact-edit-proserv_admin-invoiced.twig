@@ -1,0 +1,277 @@
+{% extends "layouts/layout-dashboard.twig" %}
+{% set page_group = "contact" %}
+
+{# Set page properties (page.*) here. #}
+{% block page %}
+    {# By putting this in a special block, we ensure that it will be set AFTER the default values are set in the parent template, 
+    but BEFORE the page itself is rendered. #}    
+    {% set page = page | merge({
+        "title"       : "Update a Ticket",
+        "description" : "Update a work request ticket"
+    }) %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+        <h1>Update Ticket</h1>
+        
+        <div class='alert alert-warning'><i class='fa fa-question-circle'></i> Want to speak with someone directly regarding an urgent job?  Call our hotline on <b>0418 983 629</b> for priority assistance.</div>
+        
+        <form id="contact-form" method="post" action="{{ site.uri.public }}/update-ticket" role="form" enctype="multipart/form-data">
+            <div class="row">
+                <div id="userfrosting-alerts" class="col-lg-12">
+                
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                <p class="lead">Complete the details below to have your ticket logged and someone will be in touch shortly to confirm.</p>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="control-label">Site Contact</label>
+                        <div class="input-group"><span class="input-group-addon"><i class="fa fa-fw fa-edit"></i></span>
+                    <input type="text" class="form-control " name="name" autocomplete="off" value="{{ticket.sitecontact}}" placeholder="First and last name" disabled>
+                            <input type="hidden" name="name" id="name" value="{{ticket.sitecontact}}" />
+                        </div>
+                    </div>
+              </div>
+            </div>
+			<div class="row">
+              <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="control-label">Site Address</label>
+                        <div class="input-group"><span class="input-group-addon"><i class="fa fa-fw fa-map-marker"></i></span>
+                    <input type="text" class="form-control " name="siteaddress" autocomplete="off" value="{{ticket.siteaddress}}" placeholder="Location where work is required" disabled></div>
+                        <input type="hidden" name="siteaddress" id="siteaddress" value="{{ticket.siteaddress}}" />
+                    </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="control-label">Email</label>
+                        <div class="input-group"><span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
+                    <input type="email" class="form-control " name="email" autocomplete="off" value="{{ticket.email}}" placeholder="Email address" disabled></div>
+                        <input type="hidden" name="email" id="email" value="{{ticket.email}}" />
+                    </div>
+              </div>
+            </div>		  
+            <div class="row">
+              <div class="col-sm-12">
+                    <div class="form-group=">
+                        <label class="control-label">Phone</label>
+                        <div class="input-group"><span class="input-group-addon"><i class="fa fa-fw fa-phone"></i></span>
+                    <input type="text" class="form-control" name="phone" autocomplete="off" value="{{ticket.phone}}" placeholder="Telephone number" disabled></div>
+                        <input type="hidden" name="phone" id="phone" value="{{ticket.phone}}" />
+                    </div>
+              </div>
+            </div><br>
+			<div class="row">
+				<div class="col-sm-12">
+					<label class="control-label">Service Type</label>
+					<div class="input-group"><span class="input-group-addon"><i class="fa fa-fw fa-wrench"></i></span>
+					<select name="servicetype" class="form-control" disabled>
+						{% if (ticket.servicetype) %}
+						
+							<option value="Not Sure" {% if (ticket.servicetype == "Not Sure") %} selected {% endif %}>Not Sure</a>
+							<option value="Electrical" {% if (ticket.servicetype == "Electrical") %} selected {% endif %}>Electrical</a>
+							<option value="Telecommunications" {% if (ticket.servicetype == "Telecommunications") %} selected {% endif %}>Telecommunications</a>
+							<option value="Plumbing" {% if (ticket.servicetype == "Plumbing") %} selected {% endif %}>Plumbing</a>
+							<option value="Glazing" {% if (ticket.servicetype == "Glazing") %} selected {% endif %}>Glazing/Glass</a>
+							<option value="Plastering" {% if (ticket.servicetype == "Plastering") %} selected {% endif %}>Plastering</a>
+							<option value="Painting" {% if (ticket.servicetype == "Painting") %} selected {% endif %}>Painting</a>
+							<option value="Other" {% if (ticket.servicetype == "Other") %} selected {% endif %}>Other</a>
+							<input type="hidden" name="servicetype" id="servicetype" value="{{ticket.servicetype}}" />
+						{% else %}
+							<option value="Not Sure">Not Sure</a>
+							<option value="Electrical">Electrical</a>
+							<option value="Telecommunications">Telecommunications</a>
+							<option value="Plumbing">Plumbing</a>
+							<option value="Glazing">Glazing/Glass</a>
+							<option value="Plastering">Plastering</a>
+							<option value="Painting">Painting</a>
+							<option value="Other">Other</a>
+						{% endif %}
+						
+					</select>
+					</div>
+				</div>
+			</div><br>            
+			<div class="row">
+				<div class="col-sm-12">
+                    <div class="row">
+				        <div class="col-sm-7">
+                            <label class="control-label">Service Level</label>
+					<div class="input-group"><span class="input-group-addon"><i class="fa fa-fw fa-exclamation"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					{% if (ticket.servicelevel) %}
+						{% if (ticket.servicelevel == "Priority") %}
+							<input type="radio" class="radio-inline" name="servicelevel" value="Priority" checked disabled> Priority</input>
+							<input type="radio" class="radio-inline" name="servicelevel" value="Off-Peak" disabled> Off-Peak</input>	
+						{% else %}
+							<input type="radio" class="radio-inline" name="servicelevel" value="Priority" disabled> Priority</input>
+							<input type="radio" class="radio-inline" name="servicelevel" value="Off-Peak" checked disabled> Off-Peak</input>	
+						{% endif %}
+						<input type="hidden" name="servicelevel" id="servicelevel" value="{{ticket.servicelevel}}" />
+					{% else %}
+						<input type="radio" class="radio-inline" name="servicelevel" value="Priority" checked disabled> Priority</input>
+						<input type="radio" class="radio-inline" name="servicelevel" value="Off-Peak" disabled> Off-Peak</input>
+					{% endif %}
+					
+					</div>
+                        </div>
+                        <div class="col-sm-5">
+                            <label class="control-label">Update Status</label>
+					<div class="input-group"><span class="input-group-addon"><i class="fa fa-fw fa-exclamation"></i></span>
+                        <select name="status" class="form-control" required>
+						{% if (ticket.status) %}
+                            <option value="Invoiced" {% if (ticket.status == "Invoiced") %} selected {% endif %}>Invoiced</a>
+                            <option value="Paid" {% if (ticket.status == "Paid") %} selected {% endif %}>Paid</a>
+    					{% else %}
+                            <option value="Invoiced">Invoiced</a>
+                            <option value="Paid">Paid</a>
+						{% endif %}
+						
+					</select>
+					
+					</div>
+                        </div>
+                    </div>    
+					
+				</div>
+			</div><br>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea class='form-control' name="message" rows='8' placeholder="Please enter a description of the work required" disabled>{{ticket.notes}}</textarea>
+                    <input type="hidden" name="message" id="message" value="{{ticket.notes}}" />
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+				<div class="col-sm-12">
+                    <div class="row-fluid">
+				        <div class="col-sm-5">
+                                <div class="form-group">
+                                <label>Admin Notes</label>
+                                <textarea class='form-control' name="admin_note" rows='8' placeholder="Please enter an admin note of the work required"></textarea>
+                            </div>
+                            <label>File Upload (Compilance certificates, photo of works, etc)</label>
+                            <div class="form-group" style="border:2px solid;font-size:10px;padding:10px;">
+                                
+                                 {% if (ticket.admin_file_1!="-" and ticket.admin_file_1!="") %}
+                                <a href="{{ site.uri.public }}/{{ticket.admin_file_1}}" download="{{ticket.admin_file_name_1}}">{{ticket.admin_file_name_1}}</a> <input type="checkbox" name="delete_file_1" value="yes" style="position:relative;top:3px;"> delete?<br>
+                                {% endif %}
+                                {% if (ticket.admin_file_2!="-" and ticket.admin_file_2!="") %}
+                                    <a href="{{ site.uri.public }}/{{ticket.admin_file_2}}" download="{{ticket.admin_file_name_2}}">{{ticket.admin_file_name_2}}</a> <input type="checkbox" name="delete_file_2" value="yes" style="position:relative;top:3px;"> delete?<br>
+                                {% endif %}
+                                {% if (ticket.admin_file_3!="-" and ticket.admin_file_3!="") %}
+                                    <a href="{{ site.uri.public }}/{{ticket.admin_file_3}}" download="{{ticket.admin_file_name_3}}">{{ticket.admin_file_name_3}}</a> <input type="checkbox" name="delete_file_3" value="yes" style="position:relative;top:3px;"> delete?<br>
+                                {% endif %}
+                                {% if (ticket.admin_file_4!="-" and ticket.admin_file_4!="") %}
+                                    <a href="{{ site.uri.public }}/{{ticket.admin_file_4}}" download="{{ticket.admin_file_name_4}}">{{ticket.admin_file_name_4}}</a> <input type="checkbox" name="delete_file_4" value="yes" style="position:relative;top:3px;"> delete?<br>
+                                {% endif %}
+                                {% if (ticket.admin_file_5!="-" and ticket.admin_file_5!="") %}
+                                    <a href="{{ site.uri.public }}/{{ticket.admin_file_5}}" download="{{ticket.admin_file_name_5}}">{{ticket.admin_file_name_5}}</a> <input type="checkbox" name="delete_file_5" value="yes" style="position:relative;top:3px;"> delete?<br>
+                                {% endif %}
+                                {% if (ticket.admin_file_6!="-" and ticket.admin_file_6!="") %}
+                                    <a href="{{ site.uri.public }}/{{ticket.admin_file_6}}" download="{{ticket.admin_file_name_6}}">{{ticket.admin_file_name_6}}</a> <input type="checkbox" name="delete_file_6" value="yes" style="position:relative;top:3px;"> delete?<br>
+                                {% endif %}
+                                {% if (ticket.admin_file_7!="-" and ticket.admin_file_7!="") %}
+                                    <a href="{{ site.uri.public }}/{{ticket.admin_file_7}}" download="{{ticket.admin_file_name_7}}">{{ticket.admin_file_name_7}}</a> <input type="checkbox" name="delete_file_7" value="yes" style="position:relative;top:3px;"> delete?<br>
+                                {% endif %}
+                                {% if (ticket.admin_file_8!="-" and ticket.admin_file_8!="") %}
+                                    <a href="{{ site.uri.public }}/{{ticket.admin_file_8}}" download="{{ticket.admin_file_name_8}}">{{ticket.admin_file_name_8}}</a> <input type="checkbox" name="delete_file_8" value="yes" style="position:relative;top:3px;"> delete?
+                                {% endif %}
+                                <br>
+                                <input type="file" name="files[]" multiple/> 
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <label>User Uploaded Photos</label>
+                           <div class="form-group" style="border:2px solid;">
+                             <div class="row">
+                                 
+                                {% if (ticket.user_photos_1!="-" and ticket.user_photos_1!="") %}
+                                    <img id="myImg1" width="50px;" height="50px;" style="margin:30px;" src="{{ site.uri.public }}/{{ticket.user_photos_1}}" />
+                                {% endif %}
+                                {% if (ticket.user_photos_2!="-" and ticket.user_photos_2!="") %}
+                                    <img id="myImg2" width="50px;" height="50px;" style="margin:30px;" src="{{ site.uri.public }}/{{ticket.user_photos_2}}" />
+                                {% endif %}
+                                {% if (ticket.user_photos_3!="-" and ticket.user_photos_3!="") %}
+                                    <img id="myImg3" width="50px;" height="50px;" style="margin:30px;" src="{{ site.uri.public }}/{{ticket.user_photos_3}}" />
+                                {% endif %}
+                                {% if (ticket.user_photos_4!="-" and ticket.user_photos_4!="") %}
+                                    <img id="myImg4" width="50px;" height="50px;" style="margin:30px;" src="{{ site.uri.public }}/{{ticket.user_photos_4}}" />
+                                {% endif %}
+                                {% if (ticket.user_photos_5!="-" and ticket.user_photos_5!="") %}
+                                    <img id="myImg5" width="50px;" height="50px;" style="margin:30px;" src="{{ site.uri.public }}/{{ticket.user_photos_5}}" />
+                                {% endif %}
+                                {% if (ticket.user_photos_6!="-" and ticket.user_photos_6!="") %}
+                                    <img id="myImg6" width="50px;" height="50px;" style="margin:30px;" src="{{ site.uri.public }}/{{ticket.user_photos_6}}" />
+                                {% endif %}
+                                {% if (ticket.user_photos_7!="-" and ticket.user_photos_7!="") %}
+                                    <img id="myImg7" width="50px;" height="50px;" style="margin:30px;" src="{{ site.uri.public }}/{{ticket.user_photos_7}}" />
+                                {% endif %}
+                                {% if (ticket.user_photos_8!="-" and ticket.user_photos_8!="") %}
+                                    <img id="myImg8" width="50px;" height="50px;" style="margin:30px;" src="{{ site.uri.public }}/{{ticket.user_photos_8}}" />
+                                {% endif %}
+                                 
+                                 <br><br>
+
+                                 </div>
+                               
+                            </div>
+                        </div>
+                    </div>    
+					
+				</div>
+			</div>
+            
+<input type="hidden" name="{{csrf_key}}" value="{{csrf_token}}">
+            <br>
+			<input type="hidden" name="save_type" id="save_type" value="{{save_type}}" />
+			<input type="hidden" name="ticket_id" id="ticket_id" value="{{ticket.id}}" />
+            <div class="row">
+                <div class="col-sm-12">
+                    <div>  
+                        <button type="submit" class="btn btn-success  "  data-loading-text="Please wait...">
+                            <i class='fa fa-paper-plane'></i> Send
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse">
+              <label>Spiderbro: Don't change me bro, I'm tryin'a catch some flies!</label>
+              <input name="spiderbro" id="spiderbro" value="http://"/>
+            </div>          
+        </form>
+<div id="myModal" class="modal2">
+  <span class="close2">&times;</span>
+  <img class="modal-content2" id="img01">
+  <div id="caption2"></div>
+</div>
+{% endblock %}
+{% block page_scripts %}
+    <script src="{{site.uri.js}}/image-modal.js"></script>
+    <script>
+    /*
+        $(document).ready(function() {           
+            // Process form 
+            ufFormSubmit($("#contact-form"), 
+                {{ validators | raw }}, 
+                $("#userfrosting-alerts"),
+                function(data, statusText, jqXHR) {
+                    // Reload the page
+                    window.location.reload();
+                }
+            );
+        });
+    */
+    </script>
+
+{% endblock %}

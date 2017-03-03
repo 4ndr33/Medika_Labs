@@ -1,0 +1,26 @@
+{% extends "layouts/layout-jumbotron.twig" %}
+{% set page_group = "loggedout" %}
+
+{% block page %}
+    {# By putting this in a special block, we ensure that it will be set AFTER the default values are set in the parent template, 
+    but BEFORE the page itself is rendered. #}
+    
+    {% set page = page | merge({
+        "title"       : "ProServ Plus Job Platform",
+        "description" : "Providing convenient access to affordable, quality trade services",
+        "active_page" : ""
+    }) %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}    
+    <h2>Medika Labs Finance And Stock Management</h2>
+    <!-- <p class="lead">Convenient service delivery to Australian Standards<br></p> -->
+    {% include 'components/common/alerts.twig' %}	
+    <div class="row">
+        <div class="col-sm-12">
+          <a href="{{site.uri.public}}/account/login" class="btn btn-success" role="button" value="Login">Login</a>
+        </div>
+    </div>
+    {% include 'components/jumbotron/jumbotron-links.twig' %}	
+{% endblock %}

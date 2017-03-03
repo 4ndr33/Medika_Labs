@@ -1,0 +1,17 @@
+{% block subject %}
+    Ticket allocated on {{site.site_title}}
+{% endblock %}
+
+{% block body %}
+<p>
+    Dear {{display_name}},
+</p>
+<p>
+    You have been allocated ticket #{{ ticket_id }} at {{ ticket_timestamp }}.
+</p>
+
+<p>
+    With regards,<br>
+    The {{site.site_title}} Team
+</p>
+{% endblock %}

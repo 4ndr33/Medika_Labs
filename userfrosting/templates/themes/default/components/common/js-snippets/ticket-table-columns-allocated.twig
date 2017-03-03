@@ -1,0 +1,69 @@
+{# This contains a series of <script> blocks, each of which is a client-side Handlebars template. #}
+{% verbatim %}
+<script id="user-table-column-user_info" type="text/x-handlebars-template">
+	<td data-text="{{ticket.id}}">
+		
+			<strong>ID</strong> {{ticket.id}} 
+			<br>
+			<strong>User ID</strong> {{ticket.user_id}}
+		
+	</td>
+    
+</script>
+
+<script id="user-table-column-site_info" type="text/x-handlebars-template">
+    <td data-text="{{ticket.sitecontact}}">
+		<strong>Contact</strong> {{ticket.sitecontact}} 
+		<br>
+		<strong>Address</strong> {{ticket.siteaddress}}
+	</td> 
+</script>
+
+<script id="user-table-column-email_phone" type="text/x-handlebars-template">
+    <td data-text="{{ticket.email}}">
+		<strong>Email</strong> {{ticket.email}} 
+		<br>
+		<strong>Phone</strong> {{ticket.phone}}
+	</td>
+</script>
+<script id="user-table-column-service_info" type="text/x-handlebars-template">
+    <td data-text="{{ticket.servicelevel}}">
+		<strong>Level</strong> {{ticket.servicelevel}}
+		<br>									
+		<strong>Type</strong> {{ticket.servicetype}}
+	</td> 
+</script>
+<script id="user-table-column-status" type="text/x-handlebars-template">
+    <td data-text="{{ticket.status}} ">
+			{{ticket.status}} 
+	</td> 
+</script>
+<script id="user-table-column-message" type="text/x-handlebars-template">
+    <td data-text="0">
+			{{ticket.notes}} 
+	</td>
+</script>
+
+<script id="user-table-column-actions" type="text/x-handlebars-template">
+    <td>
+		<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					Action
+					<span class="caret"></span>
+				</button>
+			<ul class="dropdown-menu" role="menu">
+			     <li>
+                    <a href="{{site.uri.public}}/forms/ticket/u/{{ticket.id}}/allocate-to-provider_admin">
+                    <i class="fa fa-edit"></i> Allocate Ticket
+                </li>
+				
+                <li>
+                    <a href="{{site.uri.public}}/forms/ticket/u/{{ticket.id}}/worklog">
+                    <i class="fa fa-files-o"></i> View Worklog
+                    </a>
+                </li>
+			</ul>
+		</div>
+	</td>
+</script>
+{% endverbatim %}

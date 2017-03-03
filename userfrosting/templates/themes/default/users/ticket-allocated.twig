@@ -1,0 +1,213 @@
+{% extends "layouts/layout-dashboard.twig" %}
+{% set page_group = "user" %}
+
+{# Set page properties (page.*) here. #}
+{% block page %}
+    {# By putting this in a special block, we ensure that it will be set AFTER the default values are set in the parent template, 
+    but BEFORE the page itself is rendered. #}    
+    {% set page = page | merge({
+        "title"       : box_title,
+        "description" : "A listing of the users for your site.  Provides management tools including the ability to edit user details, manually activate users, enable/disable users, and more."
+    }) %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+        <div class='panel panel-primary'>
+        <div class='panel-heading panel-heading-buttons clearfix'>
+            <h3 class='panel-title pull-left'><i class='{{icon}}'></i> {{box_title}}</h3>
+        </div>
+        <div class='panel-body'>
+            <div class="table-responsive">
+                <table id="table-users" class="tablesorter table table-bordered table-hover table-striped" data-sortlist="[[0, 0]]">
+                    <thead>
+                        <tr>
+                            <th class="sorter-metatext" data-column-name="user_info">Ticket ID & User ID <i class="fa fa-sort"></i></th>
+                            <th class="sorter-metanum" data-column-name="site_info">Site Info <i class="fa fa-sort"></i></th>
+                            <th class="sorter-metanum" data-column-name="email_phone">Email & Phone <i class="fa fa-sort"></i></th>
+							<th class="sorter-metanum" data-column-name="service_info">Service Info <i class="fa fa-sort"></i></th>
+							<th class="sorter-metanum" data-column-name="status">Status <i class="fa fa-sort"></i></th>
+							<th class="sorter-metanum" data-column-name="message">Message <i class="fa fa-sort"></i></th>
+                            <th data-column-name="flag_enabled">Status/Actions <i class="fa fa-sort"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {# If we are not using server-side pagination, then just render all results immediately #}
+                    {% if not paginate_server_side %}
+                        {% for ticket in tickets %}
+                        <tr>
+                            <td data-text="{{ticket.id}}">
+                                
+                                <strong>ID</strong> <a href="{{site.uri.public}}/forms/ticket/u/{{ticket.id}}/info">{{ticket.id}}</a> 
+									<br>
+									<strong>User</strong> ID {{ticket.user_id}}
+                                
+                                
+                                
+                            </td>
+                            <td data-text="{{ticket.sitecontact}}">
+                                <strong>Contact</strong> {{ticket.sitecontact}} 
+								<br>
+								<strong>Address</strong> {{ticket.siteaddress}}
+                            </td>
+                            <td data-text="{{ticket.email}}">
+                                    <strong>Email</strong> {{ticket.email}} 
+									<br>
+									<strong>Phone</strong> {{ticket.phone}}
+                            </td>
+							<td data-text="{{ticket.servicelevel}}">
+                                    <strong>Level</strong> {{ticket.servicelevel}}
+									<br>									
+									<strong>Type</strong> {{ticket.servicetype}}
+                            </td> 
+							<td data-text="{{ticket.status}} ">
+                                    {{ticket.status}} 
+                            </td> 						
+							<td data-text="0">
+                                    {{ticket.notes}} 
+                            </td> 													
+                            
+                            <td>
+                                <div class="btn-group">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                            Action
+                                            <span class="caret"></span>
+                                        </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                    
+                                        <li>
+                                            <a href="{{site.uri.public}}/forms/ticket/u/{{ticket.id}}/allocate-to-provider_admin">
+											<i class="fa fa-edit"></i> Allocate Ticket
+                                        </li>
+                                        <li>
+											<a href="{{site.uri.public}}/forms/ticket/u/{{ticket.id}}/worklog">
+											<i class="fa fa-files-o"></i> View Worklog
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+                {% include 'components/common/table-tablesorter-default.twig' with {'pager_id' : 'table-users-pager'} %}
+            </div>
+            <div class="row">
+                
+            </div>
+        </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}
+{% block page_scripts %}
+        <!-- Include JS snippets -->
+        {% include 'components/common/js-snippets/ticket-table-columns-assigned.twig' %}
+        
+        <script>
+            // These options get set by Twig when the page is rendered
+            var paginate_server_side = {{ paginate_server_side | default("false") }};
+            var primary_group = "{{ primary_group_name | default(null) }}";
+            var table_id = "table-users";
+            
+            $(document).ready(function() {
+                
+                // Callback for generating the AJAX url
+                function ajaxGenerateUrlCallback(table, url) {
+                    var table_state = getTableStateVars(table);
+                    $.extend(table.config.pager.ajaxObject.data, table_state);
+                    // Limit to a particular primary group
+                    if (primary_group) {
+                        table.config.pager.ajaxObject.data.primary_group = primary_group;
+                    }
+                    return url;
+                }
+            
+                // Callback for processing data returned from API
+                function ajaxProcessingCallback(data) {
+                    var $table = $(this);
+                    if (data) {
+                        //console.log(data);
+                        var col, row, txt,
+                            // make # column show correct value
+                            index = $('#' + table_id)[0].config.pager.page,
+                            json = {},
+                            rows = '';
+                        size = data['rows'].length;
+                        // Render table cells via Handlebars
+                        var template_0 = Handlebars.compile($("#user-table-column-user_info").html());
+                        var template_1 = Handlebars.compile($("#user-table-column-site_info").html());
+                        var template_2 = Handlebars.compile($("#user-table-column-email_phone").html());
+                        var template_3 = Handlebars.compile($("#user-table-column-service_info").html());
+						var template_4 = Handlebars.compile($("#user-table-column-status").html());
+						var template_5 = Handlebars.compile($("#user-table-column-message").html());
+						
+							
+                        for (row = 0; row < size; row++){
+                            rows += '<tr>';
+                            var cell_data = {
+                                "user" : data['rows'][ row ],       // It is safe to use the data from the API because Handlebars escapes HTML
+                                "site" : site
+                            };
+                            rows += template_0(cell_data);
+                            rows += template_1(cell_data);
+                            rows += template_2(cell_data);
+                            rows += template_3(cell_data);
+							rows += template_4(cell_data);
+							rows += template_5(cell_data);
+                            rows += '</tr>';
+                        }
+                        json.total = data['count'];  // Get total rows without pagination
+                        json.filteredRows = data['count_filtered']; // no filtering
+                        json.rows = $(rows);
+                        return json;
+                    }
+                }  
+                
+                function ajaxSetupCallback() {
+                    if (paginate_server_side) {
+                        var ajax_pager_options = {
+                            ajaxUrl: site['uri']['public'] + "/api/users?",
+                            // Generate the URL for the AJAX request, with the relevant parameters
+                            customAjaxUrl: ajaxGenerateUrlCallback,
+                            ajaxObject: {
+                                data: {
+                                    // rows   : size, // this doesn't work because size can't be updated dynamically 
+                                }
+                            },
+                            ajaxProcessing: ajaxProcessingCallback              
+                        };
+                        return ajax_pager_options;
+                    } else {
+                        return {};
+                    }
+                }
+                
+                function pagerCompleteCallback() {
+                    // Link row buttons
+                    if (paginate_server_side) {
+                        bindUserTableButtons($('#' + table_id));
+                    }
+                    // Link CSV download button
+                    $("#table-users-download").on("click", function (){
+                        var state = getTableStateVars($('#' + table_id)[0]);
+                        state['format'] = "csv";
+                        delete state['page'];
+                        delete state['size'];
+                        if (primary_group)
+                            state['primary_group'] = primary_group;       
+                        var url = site['uri']['public'] + "/api/users?" + $.param( state );
+                        window.location = url;
+                    });
+                }
+                
+                ufTable('table-users', ajaxSetupCallback, pagerCompleteCallback);
+            });
+        </script>
+    
+{% endblock %}
+

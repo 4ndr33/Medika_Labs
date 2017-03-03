@@ -1,0 +1,17 @@
+{% block subject %}
+    Ticket closed on {{site.site_title}}
+{% endblock %}
+
+{% block body %}
+<p>
+    Dear {{display_name}},
+</p>
+<p>
+    Ticket #{{ ticket_id }} has been marked as closed at {{ ticket_timestamp }}.
+</p>
+
+<p>
+    With regards,<br>
+    The {{site.site_title}} Team
+</p>
+{% endblock %}

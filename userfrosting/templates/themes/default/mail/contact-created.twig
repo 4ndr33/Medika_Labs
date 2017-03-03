@@ -1,0 +1,17 @@
+{% block subject %}
+    Ticket created on {{site.site_title}}
+{% endblock %}
+
+{% block body %}
+<p>
+    Dear {{display_name}},
+</p>
+<p>
+    Thank you for logging a ticket. Your ticket number is {{ ticket_id }} and was created at {{ ticket_timestamp }}.
+</p>
+
+<p>
+    With regards,<br>
+    The {{site.site_title}} Team
+</p>
+{% endblock %}

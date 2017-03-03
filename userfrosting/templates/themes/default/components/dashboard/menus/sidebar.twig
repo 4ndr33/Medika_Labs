@@ -1,0 +1,307 @@
+<div class="sidebar-nav navbar-collapse">
+    <ul class="nav" id="side-menu">
+        <li>
+            <a href="{{site.uri.public}}/dashboard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+        </li>
+        
+        {% if checkAccess('uri_zerg') %}
+        <li>
+            <a href="{{site.uri.public}}/data_barang"><i class="sc sc-zerg fa fa-fw"></i>Data Barang</a>
+        </li>
+        {% endif %}
+        {% if checkAccess('uri_zerg') %}
+        <li>
+            <a href="{{site.uri.public}}/zerg"><i class="sc sc-zerg fa fa-fw"></i> Data Pembelian</a>
+        </li>
+        {% endif %}
+        {% if checkAccess('uri_zerg') %}
+        <li>
+            <a href="{{site.uri.public}}/zerg"><i class="sc sc-zerg fa fa-fw"></i> Data Penjualan</a>
+        </li>
+        {% endif %}
+        
+        {% if checkAccess('uri_zerg') %}
+        <li>
+            <a href="{{site.uri.public}}/zerg"><i class="sc sc-zerg fa fa-fw"></i> Laporan Keuangan</a>
+        </li>
+        {% endif %}
+        
+        {% if checkAccess('uri_zerg') %}
+        <li>
+            <a href="{{site.uri.public}}/zerg"><i class="sc sc-zerg fa fa-fw"></i> Zerg</a>
+        </li>
+        {% endif %}
+        
+        
+        {% if checkAccess('uri_zerg') %}
+        <li>
+            <a href="{{site.uri.public}}/zerg"><i class="sc sc-zerg fa fa-fw"></i> Zerg</a>
+        </li>
+        {% endif %}
+        {% if checkAccess('uri_users') %}
+        <li>
+            <a href="{{site.uri.public}}/users"><i class="fa fa-users fa-fw"></i> {{ translate("MENU_USERS") }}</a>
+        </li>
+        {% endif %}
+        {% if checkAccess('uri_group_users', { ('primary_group_id') : 4 }) %}
+        <li>
+            <a href="{{site.uri.public}}/users/zerglings"><i class="sc sc-zergling fa-fw"></i> Zerglings</a>
+        </li>
+        {% endif %}
+        
+        {% if checkAccess('uri_log-ticket') %}
+            {% if checkAccess('uri_provider_user') or checkAccess('uri_proserv_admin') or checkAccess('uri_provider_admin') or checkAccess('create_account') %}
+        
+            {% else %}
+                <li>
+                    <a href="{{site.uri.public}}/contact"><i class="fa fa-ticket fa-fw"></i> Log a Ticket</a>
+                </li>
+            {% endif %}
+            
+        {% endif %}
+		
+		{% if checkAccess('uri_log-ticket') %}
+            {% if checkAccess('create_account') %}
+                <li>
+                    <a href="{{site.uri.public}}/ticket-history"><i class="fa fa-ticket fa-fw"></i> Ticket History</a>
+                </li>
+            {% else %}
+            
+            {% if checkAccess('uri_provider_user') or checkAccess('uri_proserv_admin') or checkAccess('uri_provider_admin') or checkAccess('create_account') %}
+        
+            {% else %}
+                <li>
+                    <a href="{{site.uri.public}}/ticket-history"><i class="fa fa-ticket fa-fw"></i> Ticket History</a>
+                </li>
+            {% endif %}    
+        {% endif %}  
+        {% endif %}
+        
+        
+        
+        {% if checkAccess('uri_log-ticket') %}
+            {% if checkAccess('create_account') %}
+        
+            {% else %}
+                {% if checkAccess('uri_clientorg') or checkAccess('uri_clientadmin') %}
+                    <li>
+                        <a href="{{site.uri.public}}/user-ticket-history"><i class="fa fa-ticket fa-fw"></i> User Ticket History</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+                
+        {% endif %}
+        
+        
+        {% if checkAccess('uri_proserv_admin') %}
+            {% if checkAccess('create_account') %}
+            
+            {% else %}
+                <li>
+                    <a href="{{site.uri.public}}/logged-ticket"><i class="fa fa-ticket fa-fw"></i> Logged Ticket</a>
+                </li>
+            {% endif %}
+            
+        {% endif %}
+        
+        {% if checkAccess('uri_proserv_admin') %}
+            {% if checkAccess('create_account') %}
+            
+            {% else %}
+                <li>
+                    <a href="{{site.uri.public}}/closed-ticket"><i class="fa fa-ticket fa-fw"></i> Closed Ticket</a>
+                </li>
+            {% endif %}
+            
+        {% endif %}
+        
+        {% if checkAccess('uri_proserv_admin') %}
+            {% if checkAccess('create_account') %}
+            
+            {% else %}
+                <li>
+                    <a href="{{site.uri.public}}/invoiced-ticket"><i class="fa fa-ticket fa-fw"></i> Invoiced Ticket</a>
+                </li>
+            {% endif %}
+            
+        {% endif %}
+        
+        
+        
+        {% if checkAccess('uri_provider') %}
+            {% if checkAccess('create_account') %}
+            
+            {% else %}
+                <li>
+                    <a href="{{site.uri.public}}/allocated-ticket"><i class="fa fa-ticket fa-fw"></i> Allocated Ticket</a>
+                </li>
+            {% endif %}
+            
+        {% endif %}
+        
+        {% if checkAccess('uri_provider') %}
+            {% if checkAccess('create_account') %}
+            
+            {% else %}
+                <li>
+                    <a href="{{site.uri.public}}/completed-ticket"><i class="fa fa-ticket fa-fw"></i> Completed Ticket</a>
+                </li>
+            {% endif %}
+            
+        {% endif %}
+        
+        
+        {% if checkAccess('uri_provider') %}
+            {% if checkAccess('create_account') %}
+            
+            {% else %}
+                <li>
+                    <a href="{{site.uri.public}}/provider-admin"><i class="fa fa-ticket fa-fw"></i> Provider Admin</a>
+                </li>
+            {% endif %}
+            
+        {% endif %}
+        
+        {% if checkAccess('uri_provider') %}
+            {% if checkAccess('create_account') %}
+            
+            {% else %}
+                <li>
+                    <a href="{{site.uri.public}}/provider-user"><i class="fa fa-ticket fa-fw"></i> Provider User</a>
+                </li>
+            {% endif %}
+            
+        {% endif %}
+        
+        
+        {% if checkAccess('uri_provider_admin') %}
+            {% if checkAccess('create_account') %}
+            
+            {% else %}
+                <li>
+                    <a href="{{site.uri.public}}/provider-user-for-admin"><i class="fa fa-ticket fa-fw"></i> Provider User</a>
+                </li>
+            {% endif %}
+            
+        {% endif %}
+        
+        
+        
+        {% if checkAccess('uri_provider_admin') %}
+            {% if checkAccess('create_account') %}
+            
+            {% else %}
+                <li>
+                    <a href="{{site.uri.public}}/allocated-ticket-provider_admin"><i class="fa fa-ticket fa-fw"></i> Allocated Ticket</a>
+                </li>
+            {% endif %}
+            
+        {% endif %}
+        
+        {% if checkAccess('uri_provider_admin') %}
+            {% if checkAccess('create_account') %}
+            
+            {% else %}
+                <li>
+                    <a href="{{site.uri.public}}/completed-ticket-provider_admin"><i class="fa fa-ticket fa-fw"></i> Completed Ticket</a>
+                </li>
+            {% endif %}
+            
+        {% endif %}
+        
+        
+        
+        {% if checkAccess('uri_provider_user') %}
+            {% if checkAccess('create_account') %}
+            
+            {% else %}
+                <li>
+                    <a href="{{site.uri.public}}/assigned-ticket"><i class="fa fa-ticket fa-fw"></i> Assigned Ticket</a>
+                </li>
+            {% endif %}
+            
+        {% endif %}
+        
+        
+        {% if checkAccess('uri_clientorg') %}
+            {% if checkAccess('create_account') %}
+            
+            {% else %}
+                <li>
+                    <a href="{{site.uri.public}}/client-admin"><i class="fa fa-ticket fa-fw"></i> User Admin</a>
+                </li>
+            {% endif %}
+            
+        {% endif %}
+        
+        {% if checkAccess('uri_clientorg') %}
+            {% if checkAccess('create_account') %}
+            
+            {% else %}
+                <li>
+                    <a href="{{site.uri.public}}/client-user"><i class="fa fa-ticket fa-fw"></i> User</a>
+                </li>
+            {% endif %}
+            
+        {% endif %}
+        
+        {% if checkAccess('uri_clientadmin') %}
+            {% if checkAccess('create_account') %}
+            
+            {% else %}
+                <li>
+                    <a href="{{site.uri.public}}/client-user-for-admin"><i class="fa fa-ticket fa-fw"></i> User</a>
+                </li>
+            {% endif %}
+            
+        {% endif %}
+        
+        {% if checkAccess('uri_offers') %}
+            {% if checkAccess('create_account') %}
+            
+            {% else %}
+                <li>
+                    <a href="{{site.uri.public}}/offers"><i class="fa fa-ticket fa-fw"></i> Offers</a>
+                </li>
+            {% endif %}
+            
+        {% endif %}
+        
+        
+        
+        
+        <!--
+        {% if checkAccess('uri_view-chart') %}
+            <li>
+                <a href="{{site.uri.public}}/analytics"><i class="fa fa-ticket fa-fw"></i> User Dashboard Analytics</a>
+            </li>
+        {% endif %}
+        --!>
+        
+        {% if checkAccess('uri_pricing') %}
+            <li>
+                <a href="{{site.uri.public}}/pricing"><i class="fa fa-dollar fa-fw"></i> Pricing</a>
+            </li>
+        {% endif %}
+
+        {% if checkAccess('uri_site_settings') or checkAccess('uri_manage_groups') %}
+        <li>
+            <a href="#"><i class="fa fa-wrench fa-fw"></i> {{ translate("MENU_CONFIGURATION") }}<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+                {% if checkAccess('uri_site_settings') %}
+                <li>
+                    <a href="{{site.uri.public}}/config/settings"><i class="fa fa-globe fa-fw"></i> {{ translate("MENU_SITE_SETTINGS") }}</a>
+                </li>
+                {% endif %}
+                {% if checkAccess('uri_manage_groups') %}
+                <li>
+                    <a href="{{site.uri.public}}/groups"><i class="fa fa-tags fa-fw"></i> {{ translate("MENU_GROUPS") }}</a>
+                </li>
+                {% endif %}
+            </ul>
+            <!-- /.nav-second-level -->
+        </li>
+        {% endif %}
+    </ul>
+</div>
+<!-- /.sidebar-collapse -->

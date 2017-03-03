@@ -1,0 +1,224 @@
+{% extends "layouts/layout-dashboard.twig" %}
+{% set page_group = "contact" %}
+
+{# Set page properties (page.*) here. #}
+{% block page %}
+    {# By putting this in a special block, we ensure that it will be set AFTER the default values are set in the parent template, 
+    but BEFORE the page itself is rendered. #}    
+    {% set page = page | merge({
+        "title"       : "Log a Ticket",
+        "description" : "Log a work request ticket"
+    }) %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+        <h1>Log a Ticket</h1>
+        
+        <div class='alert alert-warning'><i class='fa fa-question-circle'></i> Want to speak with someone directly regarding an urgent job?  Call our hotline on <b>0418 983 629</b> for priority assistance.</div>
+        
+        <form id="contact-form" method="post" action="{{ site.uri.public }}/contact" role="form" enctype="multipart/form-data">
+            <div class="row">
+                <div id="userfrosting-alerts" class="col-lg-12">
+                
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                <p class="lead">Complete the details below to have your ticket logged and someone will be in touch shortly to confirm.</p>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="control-label">Site Contact</label>
+                        <div class="input-group"><span class="input-group-addon"><i class="fa fa-fw fa-edit"></i></span>
+                    <input type="text" class="form-control " name="name" autocomplete="off" value="{{ticket.sitecontact}}" placeholder="First and last name"></div>
+                    </div>
+              </div>
+            </div>
+			<div class="row">
+              <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="control-label">Site Address</label>
+                        <div class="input-group"><span class="input-group-addon"><i class="fa fa-fw fa-map-marker"></i></span>
+                    <input type="text" class="form-control " name="siteaddress" autocomplete="off" value="{{ticket.siteaddress}}" placeholder="Location where work is required"></div>
+                    </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="control-label">Email</label>
+                        <div class="input-group"><span class="input-group-addon"><i class="fa fa-fw fa-envelope"></i></span>
+                    <input type="text" class="form-control " name="email" autocomplete="off" value="{{ticket.email}}" placeholder="Email address"></div>
+                    </div>
+              </div>
+            </div>		  
+            <div class="row">
+              <div class="col-sm-12">
+                    <div class="form-group=">
+                        <label class="control-label">Phone</label>
+                        <div class="input-group"><span class="input-group-addon"><i class="fa fa-fw fa-phone"></i></span>
+                    <input type="text" class="form-control" name="phone" autocomplete="off" value="{{ticket.phone}}" placeholder="Telephone number"></div>
+                    </div>
+              </div>
+            </div><br>
+			<div class="row">
+				<div class="col-sm-12">
+					<label class="control-label">Service Type</label>
+					<div class="input-group"><span class="input-group-addon"><i class="fa fa-fw fa-wrench"></i></span>
+					<select name="servicetype" class="form-control">
+						{% if (ticket.servicetype) %}
+						
+							<option value="Not Sure" {% if (ticket.servicetype == "Not Sure") %} selected {% endif %}>Not Sure</a>
+							<option value="Electrical" {% if (ticket.servicetype == "Electrical") %} selected {% endif %}>Electrical</a>
+							<option value="Telecommunications" {% if (ticket.servicetype == "Telecommunications") %} selected {% endif %}>Telecommunications</a>
+							<option value="Plumbing" {% if (ticket.servicetype == "Plumbing") %} selected {% endif %}>Plumbing</a>
+							<option value="Glazing" {% if (ticket.servicetype == "Glazing") %} selected {% endif %}>Glazing/Glass</a>
+							<option value="Plastering" {% if (ticket.servicetype == "Plastering") %} selected {% endif %}>Plastering</a>
+							<option value="Painting" {% if (ticket.servicetype == "Painting") %} selected {% endif %}>Painting</a>
+							<option value="Other" {% if (ticket.servicetype == "Other") %} selected {% endif %}>Other</a>
+							
+						{% else %}
+							<option value="Not Sure">Not Sure</a>
+							<option value="Electrical">Electrical</a>
+							<option value="Telecommunications">Telecommunications</a>
+							<option value="Plumbing">Plumbing</a>
+							<option value="Glazing">Glazing/Glass</a>
+							<option value="Plastering">Plastering</a>
+							<option value="Painting">Painting</a>
+							<option value="Other">Other</a>
+						{% endif %}
+						
+					</select>
+					</div>
+				</div>
+			</div><br>            
+			<div class="row">
+				<div class="col-sm-12">
+                    <div class="row">
+				        <div class="col-sm-7">
+                            <label class="control-label">Service Level</label>
+					<div class="input-group"><span class="input-group-addon"><i class="fa fa-fw fa-exclamation"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					{% if (ticket.servicelevel) %}
+						{% if (ticket.servicelevel == "Priority") %}
+							<input type="radio" class="radio-inline" name="servicelevel" value="Priority" checked> Priority</input>
+							<input type="radio" class="radio-inline" name="servicelevel" value="Off-Peak"> Off-Peak</input>	
+						{% else %}
+							<input type="radio" class="radio-inline" name="servicelevel" value="Priority"> Priority</input>
+							<input type="radio" class="radio-inline" name="servicelevel" value="Off-Peak" checked> Off-Peak</input>	
+						{% endif %}
+						
+					{% else %}
+						<input type="radio" class="radio-inline" name="servicelevel" value="Priority"> Priority</input>
+						<input type="radio" class="radio-inline" name="servicelevel" value="Off-Peak"> Off-Peak</input>
+					{% endif %}
+					
+					</div>
+                        </div>
+                        <div class="col-sm-5">
+                            <label class="control-label">Update Status</label>
+					<div class="input-group"><span class="input-group-addon"><i class="fa fa-fw fa-exclamation"></i></span>
+                        <select name="updatestatus" class="form-control">
+						{% if (ticket.updatestatus) %}
+						
+                            <option value="Awaiting response" {% if (ticket.updatestatus == "Other") %} selected {% endif %}>Awaiting response</a>
+							<option value="Scheduled" {% if (ticket.updatestatus == "Other") %} selected {% endif %}>Scheduled</a>
+							<option value="Technician Onsite" {% if (ticket.updatestatus == "Other") %} selected {% endif %}>Technician Onsite</a>
+							<option value="Complete" {% if (ticket.updatestatus == "Other") %} selected {% endif %}>Complete</a>
+							
+						{% else %}
+							<option value="Awaiting response">Awaiting response</a>
+							<option value="Scheduled">Scheduled</a>
+							<option value="Technician Onsite">Technician Onsite</a>
+							<option value="Complete">Complete</a>
+						{% endif %}
+						
+					</select>
+					
+					</div>
+                        </div>
+                    </div>    
+					
+				</div>
+			</div><br>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea class='form-control' name="message" rows='8' placeholder="Please enter a description of the work required">{{ticket.notes}}</textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+				<div class="col-sm-12">
+                    <div class="row-fluid">
+				        <div class="col-sm-5">
+                                <div class="form-group">
+                                <label>Admin Notes</label>
+                                <textarea class='form-control' name="message" rows='8' placeholder="Please enter a description of the work required">{{ticket.notes}}</textarea>
+                            </div>
+                            <label>File Upload (Compilance certificates, photo of works, etc)</label>
+                            <div class="form-group" style="height:150px;border:2px solid;">
+                                
+                                
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <label>User Uploaded Photos</label>
+                           <div class="form-group" style="height:365px;border:2px solid;">
+                             <div class="row">
+                                 <center>
+                                <div class="col-sm-2" style="height:120px;border:2px solid;margin:auto;">
+                               </div>
+                                 <div class="col-sm-2" style="height:120px;border:2px solid;margin:auto;">
+                               </div>
+                                 <div class="col-sm-2" style="height:120px;border:2px solid;margin:auto;">
+                               </div>
+                                     <div class="col-sm-2" style="height:120px;border:2px solid;margin:auto;">
+                               </div>
+                                     </center>
+                                 </div>
+                               
+                            </div>
+                        </div>
+                    </div>    
+					
+				</div>
+			</div>
+            
+            <br>
+			<input type="hidden" name="save_type" id="save_type" value="{{save_type}}" />
+			<input type="hidden" name="ticket_id" id="ticket_id" value="{{ticket.id}}" />
+            <div class="row">
+                <div class="col-sm-12">
+                    <div>  
+                        <button type="submit" class="btn btn-success  "  data-loading-text="Please wait..." >
+                            <i class='fa fa-paper-plane'></i> Send
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse">
+              <label>Spiderbro: Don't change me bro, I'm tryin'a catch some flies!</label>
+              <input name="spiderbro" id="spiderbro" value="http://"/>
+            </div>          
+        </form>
+{% endblock %}
+{% block page_scripts %}
+    <script>
+        $(document).ready(function() {           
+            // Process form 
+            ufFormSubmit($("#contact-form"), 
+                {{ validators | raw }}, 
+                $("#userfrosting-alerts"),
+                function(data, statusText, jqXHR) {
+                    // Reload the page
+                    window.location.reload();
+                }
+            );
+        });
+    </script>
+{% endblock %}

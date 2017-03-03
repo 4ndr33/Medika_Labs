@@ -1,0 +1,311 @@
+{% extends "layouts/layout-dashboard.twig" %}
+{% set page_group = "dashboard" %}
+
+{# Set page properties (page.*) here. #}
+{% block page %}
+    {# By putting this in a special block, we ensure that it will be set AFTER the default values are set in the parent template, 
+    but BEFORE the page itself is rendered. #}    
+    {% set page = page | merge({
+        "title"       : "Dashboard",
+        "description" : "Your user dashboard."
+    }) %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Dashboard</h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-12">            
+        <div class="alert alert-success alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <b>Welcome to {{site.site_title}}!</b><br><br> 
+          To log a ticket please click <b><a href="/contact/">here</a></b>
+          <br><br>
+          Our analytics features are currently in development, however please feel free to contact our development office on +61 (07) 4728 1144 to request a feature or discuss which analytics and reporting are most useful to you.
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-9 text-left">
+                        <div style="color:gray;"><i class="fa fa-ticket"></i> Total Ticket Logged</div>
+                        <div class="huge" style="color:gray;">{{total}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-9 text-left">
+                        <div style="color:gray;">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-ticket"></i> Open Tickets</div>
+                        <div class="huge" style="color:gray; border-left:2px solid #b3b3b3;" >&nbsp;{{open_ticket}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+<div class="row">
+    
+    <!-- /.col-lg-4 -->
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="color:gray;">
+                <i class="fa fa-bar-chart-o fa-fw"></i> Priority / Off Peak
+            </div>
+            <div class="panel-body" style="color:gray;">
+                    
+                        <div class="table-responsive" style="overflow: hidden;font-size:12px;">
+                            <table border="0">
+                                <thead>
+                                    <tr>
+                                        <th class="col-lg-2"></th>
+                                        <th class="col-lg-3">Type of service</th>
+                                        <th class="col-lg-3">% of total tickets</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td rowspan="6" style="background-color: #ffffff;"><div id="morris-donut-chart" style="width:200px;height:200px;"></div></td>
+                                        <td style="height:20px;"></td>
+                                        <td style="height:20px;"></td>
+                                    </tr>
+                                    <tr style="height:20px;">
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    {% for analytic_servicelevel1 in analytic_servicelevel %}
+                                        <tr style="height:20px;">
+                                            
+                                            <td><span id="{{analytic_servicelevel1.span}}">||||</span> {{analytic_servicelevel1.label}}</td>
+                                            <td>{{analytic_servicelevel1.value}}%</td>
+                                        </tr>    
+                                    {% endfor %}
+                                    <tr style="height:20px;">
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr style="height:20px;">
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+            </div>           
+			
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+        
+    </div>
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="color:gray;">
+                <i class="fa fa-bar-chart-o fa-fw"></i> Venue Breakdown
+            </div>
+            <div class="panel-body" style="color:gray;">
+                    
+                        <div class="table-responsive" style="overflow: hidden;font-size:12px;">
+                            <table border="0">
+                                <thead>
+                                    <tr>
+                                        <th class="col-lg-2">Top 5</th>
+                                        <th class="col-lg-3">Venue</th>
+                                        <th class="col-lg-3">% of total tickets</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                     {% for analytic_venue1 in analytic_venue %}
+                                        {% if (analytic_venue1.span == 'rcorners1') %}
+                                            <tr>
+                                                <td rowspan="6" style="background-color: #ffffff;"><div id="morris-donut-chart2" style="width:200px;height:200px;"></div></td>
+                                                <td style="height:20px;"><span id="{{analytic_venue1.span}}">||||</span> {{analytic_venue1.label}}</td>
+                                                <td style="height:20px;">{{analytic_venue1.value}}%</td>
+                                            </tr>
+                                        {% else %}
+                                            <tr style="height:20px;">
+                                                <td><span id="{{analytic_venue1.span}}">||||</span> {{analytic_venue1.label}}</td>
+                                                <td>{{analytic_venue1.value}}%</td>
+                                            </tr>
+                                        {% endif %}
+                                    
+                                    {% endfor %}
+                                    <tr>
+                                        <!-- <td rowspan="6" style="background-color: #ffffff;"><div id="morris-donut-chart2" style="width:200px;height:200px;"></div></td>
+                                        <td style="height:20px;"><span id="rcorners1">||||</span> Venue 1</td>
+                                        <td style="height:20px;">10/21/2013</td>
+                                    </tr>
+                                    <tr style="height:20px;">
+                                        <td><span id="rcorners2">||||</span> Venue 2</td>
+                                        <td>10/21/2013</td>
+                                    </tr>
+                                    <tr style="height:20px;">
+                                        <td><span id="rcorners3">||||</span> Venue 3</td>
+                                        <td>10/21/2013</td>
+                                    </tr>
+                                    <tr style="height:20px;">
+                                        <td><span id="rcorners4">||||</span> Venue 4</td>
+                                        <td>10/21/2013</td>
+                                    </tr>
+                                    <tr style="height:20px;">
+                                        <td><span id="rcorners5">||||</span> Venue 5</td>
+                                        <td>10/21/2013</td>
+                                    </tr>
+--!>
+                                </tbody>
+                            </table>
+                        </div>
+            </div>           
+			
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+        
+    </div>
+    <!-- /.col-lg-4 -->
+    
+    <!-- /.col-lg-8 -->
+    
+</div>
+<div class="row">
+  <div class="col-lg-12">
+	<div class="panel panel-default">
+		<div class="panel-heading" style="color:gray;">
+			<i class="fa fa-bar-chart-o fa-fw"></i> Volume by Trade-set
+		</div>
+		<div class="panel-body" style="color:gray;">
+            
+            
+					
+			<div class="container2 horizontal2 flat">
+                
+            {% for analytic_servicetype1 in analytic_servicetype %}
+              <div class="progress-bar2 horizontal2">
+                {{analytic_servicetype1.type}}
+                <div class="progress-track">
+                  <div class="progress-fill">
+                    <span>{{analytic_servicetype1.value}}%</span>
+                  </div>
+                </div>
+              </div>
+
+            {% endfor %}
+              
+		<!-- /.panel-body -->
+	</div>
+	<!-- /.panel -->
+	
+</div>
+    </div>
+      </div>
+    </div>
+<!-- Horizontal, flat -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bar-chart-o fa-fw"></i> Ticket Volume Chart
+                <div class="pull-right">
+                   
+                </div>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div id="morris-area-chart"></div>
+            </div>
+            <!-- /.panel-body -->
+        </div>    
+    </div>
+</div>    
+        
+                
+      <div class="row">
+        <div class="col-md-12">
+            <div class='panel panel-primary'>
+                <div class='panel-heading'>
+                    <h3 class='panel-title'><i class='fa fa-files-o'></i> Ticket Recent Activity Feed</h3>
+                </div>
+                <div class='panel-body'>
+                    
+                    {% for ticket in tickets %}
+                        {% if ticket.log_content == "created" %}
+                        <code style="color:green;">Ticket {{ticket.ticket_id}} created by {{ticket.user_name}} at {{ticket.time_stamp}}<br>--- Ticket {{ticket.log_content}}</code><br>          
+                    
+                        {% else %}
+                        <code style="color:green;">Ticket {{ticket.ticket_id}} updated by {{ticket.user_name}} at {{ticket.time_stamp}}<br>--- Ticket {{ticket.log_content}}</code><br>          
+                        {% endif %}
+                        
+                    {% endfor %}
+                </div>
+                <div class="panel-footer">
+                </div>                        
+            </div>
+        </div>
+    </div>
+<!-- /.row -->
+{% endblock %}
+{% block page_scripts %}
+      <script>
+	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    Morris.Donut({
+        element: 'morris-donut-chart',
+        data: {{ analytic_servicelevel|json_encode|raw }},
+		colors: ['#3399ff','#00cc99'],
+        resize: true
+    });
+    Morris.Donut({
+        element: 'morris-donut-chart2',
+        data: {{ analytic_venue|json_encode|raw }},
+		colors: ['#3399ff','#00cc99','#ac00e6','#d9d9d9','#ff6666'],
+        resize: true
+    });    
+    Morris.Area({
+        element: 'morris-area-chart',
+        data: {{ logs_chart_content|json_encode|raw }},
+        xkey: 'period',
+        ykeys: ['tickets'],
+        labels: ['tickets'],
+        lineColors: ['#00cc99'],        
+        pointSize: 2,
+        hideHover: 'auto',
+        resize: true,
+          xLabelFormat: function(x) { // <--- x.getMonth() returns valid index
+            var month = months[x.getMonth()] +" "+ x.getDate();
+            if(x.getDate()<=9)
+            {
+                month = months[x.getMonth()] +" 0"+ x.getDate();
+            }
+            return month;
+          },
+          dateFormat: function(x) {
+            var date= new Date(x).getDate(); 
+            var month = months[new Date(x).getMonth()] +" "+ date;
+            if(date<=9)
+            {
+                month = months[new Date(x).getMonth()] +" 0"+ date;
+            }
+            return month;
+          },
+    });
+	</script>  
+    <script src="{{site.uri.js}}/horizontal-bar.js"></script>
+    <script src="{{site.uri.js}}/morris-data.js"></script>
+    <script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+{% endblock %}
