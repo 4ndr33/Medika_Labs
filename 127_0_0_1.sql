@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version 4.0.4.1
 -- http://www.phpmyadmin.net
 --
--- Inang: 127.0.0.1
--- Waktu pembuatan: 22 Jan 2017 pada 12.15
--- Versi Server: 5.5.32
--- Versi PHP: 5.4.16
+-- Host: 127.0.0.1
+-- Generation Time: Mar 09, 2017 at 10:48 AM
+-- Server version: 5.6.11
+-- PHP Version: 5.5.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,15 +17,15 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Basis data: `frostingdb`
+-- Database: `dbmedikalabs`
 --
-CREATE DATABASE IF NOT EXISTS `frostingdb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `frostingdb`;
+CREATE DATABASE IF NOT EXISTS `dbmedikalabs` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `dbmedikalabs`;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `uf_authorize_group`
+-- Table structure for table `uf_authorize_group`
 --
 
 CREATE TABLE IF NOT EXISTS `uf_authorize_group` (
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `uf_authorize_group` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
 
 --
--- Dumping data untuk tabel `uf_authorize_group`
+-- Dumping data for table `uf_authorize_group`
 --
 
 INSERT INTO `uf_authorize_group` (`id`, `group_id`, `hook`, `conditions`) VALUES
@@ -69,7 +69,7 @@ INSERT INTO `uf_authorize_group` (`id`, `group_id`, `hook`, `conditions`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `uf_authorize_user`
+-- Table structure for table `uf_authorize_user`
 --
 
 CREATE TABLE IF NOT EXISTS `uf_authorize_user` (
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `uf_authorize_user` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `uf_configuration`
+-- Table structure for table `uf_configuration`
 --
 
 CREATE TABLE IF NOT EXISTS `uf_configuration` (
@@ -96,15 +96,15 @@ CREATE TABLE IF NOT EXISTS `uf_configuration` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='A configuration table, mapping global configuration options to their values.' AUTO_INCREMENT=20 ;
 
 --
--- Dumping data untuk tabel `uf_configuration`
+-- Dumping data for table `uf_configuration`
 --
 
 INSERT INTO `uf_configuration` (`id`, `plugin`, `name`, `value`, `description`) VALUES
-(1, 'userfrosting', 'site_title', 'ProServ Plus', 'The title of the site.  By default, displayed in the title tag, as well as the upper left corner of every user page.'),
-(2, 'userfrosting', 'admin_email', 'ian.gray@ptsg.com.au', 'The administrative email for the site.  Automated emails, such as verification emails and password reset links, will come from this address.'),
+(1, 'userfrosting', 'site_title', 'Medika Labs', 'The title of the site.  By default, displayed in the title tag, as well as the upper left corner of every user page.'),
+(2, 'userfrosting', 'admin_email', 'dede1488@gmail.com', 'The administrative email for the site.  Automated emails, such as verification emails and password reset links, will come from this address.'),
 (3, 'userfrosting', 'email_login', '1', 'Specify whether users can login via email address or username instead of just username.'),
 (4, 'userfrosting', 'can_register', '1', 'Specify whether public registration of new accounts is enabled.  Enable if you have a service that users can sign up for, disable if you only want accounts to be created by you or an admin.'),
-(5, 'userfrosting', 'enable_captcha', '1', 'Specify whether new users must complete a captcha code when registering for an account.'),
+(5, 'userfrosting', 'enable_captcha', '0', 'Specify whether new users must complete a captcha code when registering for an account.'),
 (6, 'userfrosting', 'require_activation', '1', 'Specify whether email verification is required for newly registered accounts.  Accounts created by another user never need to be verified.'),
 (7, 'userfrosting', 'resend_activation_threshold', '0', 'The time, in seconds, that a user must wait before requesting that the account verification email be resent.'),
 (8, 'userfrosting', 'reset_password_timeout', '10800', 'The time, in seconds, before a user''s password reset token expires.'),
@@ -114,16 +114,16 @@ INSERT INTO `uf_configuration` (`id`, `plugin`, `name`, `value`, `description`) 
 (12, 'userfrosting', 'minify_css', '0', 'Specify whether to use concatenated, minified CSS (production) or raw CSS includes (dev).'),
 (13, 'userfrosting', 'minify_js', '0', 'Specify whether to use concatenated, minified JS (production) or raw JS includes (dev).'),
 (14, 'userfrosting', 'version', '0.3.1.20', 'The current version of UserFrosting.'),
-(15, 'userfrosting', 'author', 'Ian Gray', 'The author of the site.  Will be used in the site''s author meta tag.'),
+(15, 'userfrosting', 'author', 'Stefanus Andree', 'The author of the site.  Will be used in the site''s author meta tag.'),
 (16, 'userfrosting', 'show_terms_on_register', '1', 'Specify whether or not to show terms and conditions when registering.'),
-(17, 'userfrosting', 'site_location', 'Australia', 'The nation or state in which legal jurisdiction for this site falls.'),
+(17, 'userfrosting', 'site_location', 'Indonesia', 'The nation or state in which legal jurisdiction for this site falls.'),
 (18, 'userfrosting', 'install_status', 'complete', ''),
 (19, 'userfrosting', 'root_account_config_token', '', '');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `uf_group`
+-- Table structure for table `uf_group`
 --
 
 CREATE TABLE IF NOT EXISTS `uf_group` (
@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `uf_group` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
--- Dumping data untuk tabel `uf_group`
+-- Dumping data for table `uf_group`
 --
 
 INSERT INTO `uf_group` (`id`, `name`, `is_default`, `can_delete`, `theme`, `landing_page`, `new_user_title`, `icon`) VALUES
@@ -156,7 +156,7 @@ INSERT INTO `uf_group` (`id`, `name`, `is_default`, `can_delete`, `theme`, `land
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `uf_group_user`
+-- Table structure for table `uf_group_user`
 --
 
 CREATE TABLE IF NOT EXISTS `uf_group_user` (
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `uf_group_user` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Maps users to their group(s)' AUTO_INCREMENT=36 ;
 
 --
--- Dumping data untuk tabel `uf_group_user`
+-- Dumping data for table `uf_group_user`
 --
 
 INSERT INTO `uf_group_user` (`id`, `user_id`, `group_id`) VALUES
@@ -203,7 +203,7 @@ INSERT INTO `uf_group_user` (`id`, `user_id`, `group_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `uf_offers`
+-- Table structure for table `uf_offers`
 --
 
 CREATE TABLE IF NOT EXISTS `uf_offers` (
@@ -217,12 +217,21 @@ CREATE TABLE IF NOT EXISTS `uf_offers` (
   `provider_admin_id` int(11) NOT NULL,
   `provider_admin_name` varchar(150) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `uf_offers`
+--
+
+INSERT INTO `uf_offers` (`id`, `from_id`, `dest_id`, `position_id`, `from_name`, `dest_name`, `position_name`, `provider_admin_id`, `provider_admin_name`) VALUES
+(1, 11, 19, 6, 'provider1', 'user5', 'Provider Admin', 0, ''),
+(2, 13, 19, 9, 'clientorg1', 'user5', 'User Admin', 0, ''),
+(3, 11, 19, 7, 'provider1', 'user5', 'Provider User', 15, 'user1');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `uf_staff_event`
+-- Table structure for table `uf_staff_event`
 --
 
 CREATE TABLE IF NOT EXISTS `uf_staff_event` (
@@ -242,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `uf_staff_event` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `uf_staff_event_user`
+-- Table structure for table `uf_staff_event_user`
 --
 
 CREATE TABLE IF NOT EXISTS `uf_staff_event_user` (
@@ -255,7 +264,7 @@ CREATE TABLE IF NOT EXISTS `uf_staff_event_user` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `uf_tickets`
+-- Table structure for table `uf_tickets`
 --
 
 CREATE TABLE IF NOT EXISTS `uf_tickets` (
@@ -313,11 +322,11 @@ CREATE TABLE IF NOT EXISTS `uf_tickets` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
 
 --
--- Dumping data untuk tabel `uf_tickets`
+-- Dumping data for table `uf_tickets`
 --
 
 INSERT INTO `uf_tickets` (`id`, `sitecontact`, `siteaddress`, `email`, `phone`, `servicelevel`, `servicetype`, `notes`, `user_id`, `status`, `admin_note`, `user_photos_name_1`, `user_photos_name_2`, `user_photos_name_3`, `user_photos_name_4`, `user_photos_name_5`, `user_photos_name_6`, `user_photos_name_7`, `user_photos_name_8`, `user_photos_1`, `user_photos_2`, `user_photos_3`, `user_photos_4`, `user_photos_5`, `user_photos_6`, `user_photos_7`, `user_photos_8`, `admin_file_name_1`, `admin_file_name_2`, `admin_file_name_3`, `admin_file_name_4`, `admin_file_name_5`, `admin_file_name_6`, `admin_file_name_7`, `admin_file_name_8`, `admin_file_1`, `admin_file_2`, `admin_file_3`, `admin_file_4`, `admin_file_5`, `admin_file_6`, `admin_file_7`, `admin_file_8`, `date_created`, `allocated_to`, `assigned_to`, `allocated_to_provider_admin`, `user_organisation_id`, `user_admin_id`) VALUES
-(4, 'as', 'qwe', 'd@d.com', 'asdfk', 'Priority', 'Not Sure', 'asdqw', 1, 'Logged', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0),
+(4, 'as', 'qwe', 'd@d.com', 'asdfk', 'Priority', 'Not Sure', 'asdqw', 1, 'Assigned', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 11, 16, 15, 0, 0),
 (5, 'asasdas', 'qweqweqw', 'd@d.comvc', 'asdfkdddddddd', 'Off-Peak', 'Telecommunications', 'asdqw asdasa asssssssssssssss\r\nqwe\r\ndfsd\r\nweqwasdas\r\nasdas', 1, 'Logged', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0),
 (6, 'as', 'kqw', 'C@C.AS', 'ASKDAS', 'Priority', 'Not Sure', 'ASDAS\r\nQWE', 1, 'Logged', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0),
 (7, 'afds', 'sdfs', 'd@d.com', 'sdfs', 'Priority', 'Not Sure', 'asdsf', 1, 'Logged', '', 'uploads/admin ticket update.png', '-', '-', '-', '-', '-', '-', '', 'uploads/admin ticket update.png', '-', '-', '-', '-', '-', '-', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0, 0, 0),
@@ -360,7 +369,7 @@ INSERT INTO `uf_tickets` (`id`, `sitecontact`, `siteaddress`, `email`, `phone`, 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `uf_tickets_worklog`
+-- Table structure for table `uf_tickets_worklog`
 --
 
 CREATE TABLE IF NOT EXISTS `uf_tickets_worklog` (
@@ -373,10 +382,10 @@ CREATE TABLE IF NOT EXISTS `uf_tickets_worklog` (
   PRIMARY KEY (`id`),
   KEY `ticket_id` (`ticket_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ;
 
 --
--- Dumping data untuk tabel `uf_tickets_worklog`
+-- Dumping data for table `uf_tickets_worklog`
 --
 
 INSERT INTO `uf_tickets_worklog` (`id`, `ticket_id`, `user_id`, `user_name`, `time_stamp`, `log_content`) VALUES
@@ -425,12 +434,15 @@ INSERT INTO `uf_tickets_worklog` (`id`, `ticket_id`, `user_id`, `user_name`, `ti
 (43, 44, 18, 'user2', '22/1/17 05:27', 'status updated to Completed by user2'),
 (44, 44, 18, 'user1', '22/1/17 05:32', 'status updated to Closed by user1'),
 (45, 44, 18, 'user1', '22/1/17 05:36', 'status updated to Closed by user1'),
-(46, 44, 18, 'user1', '22/1/17 06:10', 'status updated to Closed by user1');
+(46, 44, 18, 'user1', '22/1/17 06:10', 'status updated to Closed by user1'),
+(47, 4, 1, 'proservadmin', '24/1/17 03:36', '#4 allocated to provider1 by proservadmin'),
+(48, 4, 1, 'provider1', '24/1/17 03:36', '#4 allocated to user1 by provider1'),
+(49, 4, 1, 'user1', '24/1/17 03:37', '#4 assigned to user2 by user1');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `uf_user`
+-- Table structure for table `uf_user`
 --
 
 CREATE TABLE IF NOT EXISTS `uf_user` (
@@ -456,7 +468,7 @@ CREATE TABLE IF NOT EXISTS `uf_user` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
 
 --
--- Dumping data untuk tabel `uf_user`
+-- Dumping data for table `uf_user`
 --
 
 INSERT INTO `uf_user` (`id`, `user_name`, `display_name`, `email`, `title`, `locale`, `primary_group_id`, `secret_token`, `flag_verified`, `flag_enabled`, `flag_password_reset`, `created_at`, `updated_at`, `password`, `provider_organisation_id`, `provider_admin_id`, `user_organisation_id`, `user_admin_id`) VALUES
@@ -484,7 +496,7 @@ INSERT INTO `uf_user` (`id`, `user_name`, `display_name`, `email`, `title`, `loc
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `uf_user_event`
+-- Table structure for table `uf_user_event`
 --
 
 CREATE TABLE IF NOT EXISTS `uf_user_event` (
@@ -494,10 +506,10 @@ CREATE TABLE IF NOT EXISTS `uf_user_event` (
   `occurred_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=244 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=267 ;
 
 --
--- Dumping data untuk tabel `uf_user_event`
+-- Dumping data for table `uf_user_event`
 --
 
 INSERT INTO `uf_user_event` (`id`, `user_id`, `event_type`, `occurred_at`, `description`) VALUES
@@ -726,12 +738,35 @@ INSERT INTO `uf_user_event` (`id`, `user_id`, `event_type`, `occurred_at`, `desc
 (240, 15, 'sign_in', '2017-01-22 10:26:16', 'User user1 signed in at 2017-01-22 05:26:16.'),
 (241, 16, 'sign_in', '2017-01-22 10:27:16', 'User user2 signed in at 2017-01-22 05:27:16.'),
 (242, 15, 'sign_in', '2017-01-22 10:28:46', 'User user1 signed in at 2017-01-22 05:28:46.'),
-(243, 15, 'sign_in', '2017-01-22 10:35:41', 'User user1 signed in at 2017-01-22 05:35:41.');
+(243, 15, 'sign_in', '2017-01-22 10:35:41', 'User user1 signed in at 2017-01-22 05:35:41.'),
+(244, 13, 'sign_in', '2017-01-24 03:15:02', 'User clientorg1 signed in at 2017-01-23 22:15:02.'),
+(245, 15, 'sign_in', '2017-01-24 03:21:36', 'User user1 signed in at 2017-01-23 22:21:36.'),
+(246, 10, 'sign_in', '2017-01-24 03:57:49', 'User proservadmin signed in at 2017-01-23 22:57:49.'),
+(247, 11, 'sign_in', '2017-01-24 03:58:13', 'User provider1 signed in at 2017-01-23 22:58:13.'),
+(248, 19, 'sign_in', '2017-01-24 07:03:56', 'User user5 signed in at 2017-01-24 02:03:56.'),
+(249, 13, 'sign_in', '2017-01-24 07:56:01', 'User clientorg1 signed in at 2017-01-24 02:56:01.'),
+(250, 19, 'sign_in', '2017-01-24 07:56:24', 'User user5 signed in at 2017-01-24 02:56:24.'),
+(251, 13, 'sign_in', '2017-01-24 07:59:52', 'User clientorg1 signed in at 2017-01-24 02:59:52.'),
+(252, 11, 'sign_in', '2017-01-24 08:35:39', 'User provider1 signed in at 2017-01-24 03:35:39.'),
+(253, 10, 'sign_in', '2017-01-24 08:36:10', 'User proservadmin signed in at 2017-01-24 03:36:10.'),
+(254, 11, 'sign_in', '2017-01-24 08:36:32', 'User provider1 signed in at 2017-01-24 03:36:32.'),
+(255, 15, 'sign_in', '2017-01-24 08:36:55', 'User user1 signed in at 2017-01-24 03:36:55.'),
+(256, 16, 'sign_in', '2017-01-24 08:37:12', 'User user2 signed in at 2017-01-24 03:37:12.'),
+(257, 15, 'sign_in', '2017-01-24 08:37:26', 'User user1 signed in at 2017-01-24 03:37:26.'),
+(258, 16, 'sign_in', '2017-01-24 08:37:45', 'User user2 signed in at 2017-01-24 03:37:45.'),
+(259, 11, 'sign_in', '2017-01-24 09:25:54', 'User provider1 signed in at 2017-01-24 04:25:54.'),
+(260, 11, 'sign_in', '2017-01-25 03:20:38', 'User provider1 signed in at 2017-01-24 22:20:38.'),
+(261, 1, 'sign_in', '2017-03-03 03:57:56', 'User iangray signed in at 2017-03-02 22:57:56.'),
+(262, 1, 'sign_in', '2017-03-03 04:05:35', 'User iangray signed in at 2017-03-02 23:05:35.'),
+(263, 1, 'sign_in', '2017-03-03 04:09:14', 'User iangray signed in at 2017-03-02 23:09:14.'),
+(264, 1, 'sign_in', '2017-03-03 04:42:50', 'User iangray signed in at 2017-03-02 23:42:49.'),
+(265, 1, 'sign_in', '2017-03-08 05:56:58', 'User iangray signed in at 2017-03-08 00:56:58.'),
+(266, 1, 'sign_in', '2017-03-09 06:08:10', 'User iangray signed in at 2017-03-09 01:08:10.');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `uf_user_rememberme`
+-- Table structure for table `uf_user_rememberme`
 --
 
 CREATE TABLE IF NOT EXISTS `uf_user_rememberme` (

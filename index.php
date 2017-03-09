@@ -3029,6 +3029,14 @@ $app->get('/forms/ticket/u/:user_id/update-ticket-proserv_admin-invoiced/?', fun
         $controller = new UF\UserController($app);
         return $controller->pageOffers();
     })->name('uri_users');  
+	
+	
+	// DATA BARANG
+    $app->get('/data_barang/?', function () use ($app) {
+        $controller = new UF\UserController($app);
+        return $controller->pageData_Barang();
+    })->name('uri_users');    
+	
     /********** GROUP AUTH RULES INTERFACE **********/
     
     // Group auth creation form
@@ -3213,6 +3221,11 @@ $app->get('/forms/ticket/u/:user_id/update-ticket-proserv_admin-invoiced/?', fun
         $controller = new UF\ApiController($app);
         $controller->listClientUserForAdmin();
     });
+    $app->get('/api/data_barang_harga_beli/?', function () use ($app) {
+        $controller = new UF\ApiController($app);
+        $controller->listBarang_Harga_Beli();
+    });
+
     /************ MISCELLANEOUS UTILITY ROUTES *************/
     
     // Generic confirmation dialog

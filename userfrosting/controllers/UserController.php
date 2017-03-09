@@ -1250,6 +1250,53 @@ class UserController extends \UserFrosting\BaseController {
             "users" => isset($user_collection) ? $user_collection->toArray() : []
         ]);
     }
+	
+	
+	
+	public function pageData_Barang($primary_group_name = null, $paginate_server_side = true){
+        // Optional filtering by primary group
+        if ($primary_group_name){
+            $primary_group = Group::where('name', $primary_group_name)->first();
+
+            if (!$primary_group)
+                $this->_app->notFound();
+
+            // Access-controlled page
+            if (!$this->_app->user->checkAccess('uri_group_users', ['primary_group_id' => $primary_group->id])){
+                $this->_app->notFound();
+            }
+
+            if (!$paginate_server_side) {
+                $user_collection = User::where('primary_group_id', $primary_group->id)->get();
+                $user_collection->getRecentEvents('sign_in');
+                $user_collection->getRecentEvents('sign_up', 'sign_up_time');
+            }
+            $name = $primary_group->name;
+            $icon = $primary_group->icon;
+
+        } else {
+            // Access-controlled page
+            if (!$this->_app->user->checkAccess('uri_users')){
+                $this->_app->notFound();
+            }
+
+            if (!$paginate_server_side) {
+                $user_collection = User::get();
+                $user_collection->getRecentEvents('sign_in');
+                $user_collection->getRecentEvents('sign_up', 'sign_up_time');
+            }
+            $name = "Data Barang";
+            $icon = "fa fa-users";
+        }
+        
+        $this->_app->render('barang/barang.twig', [
+            "box_title" => $name ,
+            "icon" => $icon,
+            "primary_group_name" => $primary_group_name,
+            "paginate_server_side" => $paginate_server_side,
+            "users" => isset($user_collection) ? $user_collection->toArray() : []
+        ]);
+    }
 
     /**
      * Renders a page displaying a user's information, in read-only mode.
