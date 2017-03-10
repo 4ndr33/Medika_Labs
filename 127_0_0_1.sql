@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2017 at 10:48 AM
+-- Generation Time: Mar 10, 2017 at 10:42 AM
 -- Server version: 5.6.11
 -- PHP Version: 5.5.3
 
@@ -79,6 +79,26 @@ CREATE TABLE IF NOT EXISTS `uf_authorize_user` (
   `conditions` text NOT NULL COMMENT 'The conditions under which the user has access to this action.',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `uf_barang`
+--
+
+CREATE TABLE IF NOT EXISTS `uf_barang` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `kode_barang` varchar(50) NOT NULL,
+  `nama_barang` varchar(150) NOT NULL,
+  `merek` varchar(50) NOT NULL,
+  `satuan` varchar(50) NOT NULL,
+  `harga_beli` bigint(20) NOT NULL,
+  `harga_jual` bigint(20) NOT NULL,
+  `stok` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ticket_id` (`kode_barang`),
+  KEY `user_id` (`nama_barang`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -506,7 +526,7 @@ CREATE TABLE IF NOT EXISTS `uf_user_event` (
   `occurred_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=267 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=268 ;
 
 --
 -- Dumping data for table `uf_user_event`
@@ -761,7 +781,8 @@ INSERT INTO `uf_user_event` (`id`, `user_id`, `event_type`, `occurred_at`, `desc
 (263, 1, 'sign_in', '2017-03-03 04:09:14', 'User iangray signed in at 2017-03-02 23:09:14.'),
 (264, 1, 'sign_in', '2017-03-03 04:42:50', 'User iangray signed in at 2017-03-02 23:42:49.'),
 (265, 1, 'sign_in', '2017-03-08 05:56:58', 'User iangray signed in at 2017-03-08 00:56:58.'),
-(266, 1, 'sign_in', '2017-03-09 06:08:10', 'User iangray signed in at 2017-03-09 01:08:10.');
+(266, 1, 'sign_in', '2017-03-09 06:08:10', 'User iangray signed in at 2017-03-09 01:08:10.'),
+(267, 1, 'sign_in', '2017-03-10 06:12:07', 'User iangray signed in at 2017-03-10 01:12:07.');
 
 -- --------------------------------------------------------
 

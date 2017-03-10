@@ -10,6 +10,7 @@ require_once 'vendor/autoload.php';
 require_once 'models/database/Tickets.php';
 require_once 'models/database/Tickets_Worklog.php';
 require_once 'models/database/Offers.php';
+require_once 'models/database/Barang.php';
 require_once 'models/auth/password.php';
 
 // This if-block just checks that config-userfrosting.php exists
@@ -187,6 +188,16 @@ $table_offers = new \UserFrosting\DatabaseTable($app->config('db')['db_prefix'] 
     "provider_admin_name"
 ]);
 
+$table_barang = new \UserFrosting\DatabaseTable($app->config('db')['db_prefix'] . "barang", [
+    "kode_barang",
+    "nama_barang",
+    "merek",
+    "satuan",
+    "harga_beli",
+    "harga_jual",
+    "stok"
+]);
+
 $table_group_user = new \UserFrosting\DatabaseTable($app->config('db')['db_prefix'] . "group_user");
 $table_configuration = new \UserFrosting\DatabaseTable($app->config('db')['db_prefix'] . "configuration");
 $table_authorize_user = new \UserFrosting\DatabaseTable($app->config('db')['db_prefix'] . "authorize_user");
@@ -203,6 +214,7 @@ $table_authorize_group = new \UserFrosting\DatabaseTable($app->config('db')['db_
 \UserFrosting\Database::setSchemaTable("tickets", $table_tickets);
 \UserFrosting\Database::setSchemaTable("tickets_worklog", $table_tickets_worklog);
 \UserFrosting\Database::setSchemaTable("offers", $table_offers);
+\UserFrosting\Database::setSchemaTable("barang", $table_barang);
 
 
 // Info for RememberMe table
